@@ -3,7 +3,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebaseConfig/firebase'; 
 import { useNavigate } from 'react-router-dom'; 
 import Swal from 'sweetalert2';
-import './loginpage.css';
+import '../login/loginpage.css';
 
 export const Loginpage = () => {
   const [email, setEmail] = useState('');

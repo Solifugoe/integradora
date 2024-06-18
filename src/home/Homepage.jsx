@@ -1,7 +1,5 @@
 import React from 'react';
-import './homepage.css';
-import Slideshow from '../slideshow/slideshow.jsx';
-
+import '../home/homepage.css';
 
 
 export const Homepage = () => {

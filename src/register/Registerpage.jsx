@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import './registerpage.css';
+import '../register/registerpage.css';
 import { auth } from '../firebaseConfig/firebase';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';

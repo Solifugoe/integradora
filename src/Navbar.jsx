@@ -48,8 +48,6 @@ export const Navbar = () => {
       <div className={`navbar-links ${isOpen ? 'active' : ''}`}>
         <Link to="/" onClick={closeMenu}>Inicio</Link>
         <Link to="/graficas" onClick={closeMenu}>Graficas</Link>
-        <Link to="/contact" onClick={closeMenu}>Contacto</Link>
-        <Link to="/slideshow" onClick={closeMenu}>Test</Link>
         {user ? (
           <div className={`navbar-user ${isOpen ? '' : 'desktop'}`}>
             <span className="navbar-username">Hola!, {user.displayName || user.email}</span>
