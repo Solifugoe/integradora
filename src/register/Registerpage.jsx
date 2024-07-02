@@ -78,17 +78,6 @@ export const Registerpage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          
-          <label htmlFor="password">Codigo</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Codigo"
-            value={codigo}
-            onChange={(e) => setCodigo(e.target.value)}
-          />
-
           <button type="submit">Registrarse</button>
         </form>
       </div>

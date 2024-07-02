@@ -9,32 +9,39 @@ body.login-page {
 }
 
 .login-container {
-    background-color: black;
-    color: white;
-    padding: 20px; 
+    background-color: #5a9dce;
+    color: black;
+    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .login-box {
-    position: relative; 
-    background: rgba(0, 0, 0, 0.8);
+    position: relative;
+    background: #95b8d1;
     padding: 2rem;
     border-radius: 10px;
     text-align: center;
 }
 
+.login-box::before, .login-box::after {
+    content: '';
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background-size: 70px;
+}
+
 .login-box::before {
-    top: -5px; 
+    top: -5px;
     left: 5px;
 }
 
 .login-box::after {
-    top: -5px; 
+    top: -5px;
     right: 5px;
-    transform: scaleX(-1); 
+    transform: scaleX(-1);
 }
-
 
 .login-box h2 {
     margin-bottom: 1rem;
@@ -59,24 +66,28 @@ body.login-page {
     padding: 0.5rem;
     border: none;
     border-radius: 5px;
+    background-color: whitesmoke;
+    color: black;
 }
 
 .login-box button {
     padding: 0.5rem;
     border: none;
     border-radius: 5px;
-    background: #ff00cc;  
-    background: -webkit-linear-gradient(to right, #333399, #ff00cc);  
-    background: linear-gradient(to right, #333399, #ff00cc); 
-    color: black;
+    background: #ff00cc; 
+    background: -webkit-linear-gradient(to right, black, black);  
+    background: linear-gradient(to right,black, black, black); 
+    color: white;
     cursor: pointer;
     font-weight: bold;
+
 }
 
 .login-box button:hover {
-    background-color: #ddd;
+    background-color: white;
 }
 
 .login-box input::placeholder {
     color: #999;
 }
+

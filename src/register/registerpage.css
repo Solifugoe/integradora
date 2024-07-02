@@ -9,8 +9,8 @@ body.register-page {
 }
 
 .register-container {
-    background-color: black;
-    color: white;
+    background-color: #5a9dce;
+    color: black;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -18,7 +18,7 @@ body.register-page {
 
 .register-box {
     position: relative;
-    background: rgba(0, 0, 0, 0.8);
+    background: #95b8d1;
     padding: 2rem;
     border-radius: 10px;
     text-align: center;
@@ -66,6 +66,8 @@ body.register-page {
     padding: 0.5rem;
     border: none;
     border-radius: 5px;
+    background-color: whitesmoke;
+    color: black;
 }
 
 .register-box button {
@@ -73,15 +75,16 @@ body.register-page {
     border: none;
     border-radius: 5px;
     background: #ff00cc; 
-    background: -webkit-linear-gradient(to right, #333399, #ff00cc);  
-    background: linear-gradient(to right, #333399, #ff00cc); 
-    color: black;
+    background: -webkit-linear-gradient(to right, black, black);  
+    background: linear-gradient(to right,black, black, black); 
+    color: white;
     cursor: pointer;
     font-weight: bold;
+
 }
 
 .register-box button:hover {
-    background-color: #ddd;
+    background-color: white;
 }
 
 .register-box input::placeholder {

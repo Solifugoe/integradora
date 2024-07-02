@@ -31,9 +31,8 @@ export const Loginpage = () => {
     <div className="login-container">
       <div className="login-box">
         <h1>Iniciar Sesion</h1>
-        <p>Inicia sesion para continuar</p>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="email">CORREO ELECTRÓNICO</label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
@@ -43,7 +42,7 @@ export const Loginpage = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
           
-          <label htmlFor="password">CONTRASEÑA</label>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
