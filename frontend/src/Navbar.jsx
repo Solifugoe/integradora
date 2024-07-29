@@ -50,7 +50,7 @@ export const Navbar = () => {
         <Link to="/graficas" onClick={closeMenu}>Graficas</Link>
         {user ? (
           <div className={`navbar-user ${isOpen ? '' : 'desktop'}`}>
-            <span className="navbar-username">Hola!, {user.email}</span>
+            <span className="navbar-username">Hola, {user.email} !</span>
             <button className="navbar-signout" onClick={handleSignOut}>Cerrar Sesion</button>
           </div>
         ) : (

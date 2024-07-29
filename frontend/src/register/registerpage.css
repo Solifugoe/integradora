@@ -6,6 +6,7 @@ body.register-page {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-image: url('../src/assets/images/fondo.jpg');
 }
 
 .register-container {
@@ -19,7 +20,7 @@ body.register-page {
 .register-box {
     position: relative;
     background: #95b8d1;
-    padding: 2rem;
+    padding: 3rem;
     border-radius: 10px;
     text-align: center;
 }
@@ -66,7 +67,7 @@ body.register-page {
     padding: 0.5rem;
     border: none;
     border-radius: 5px;
-    background-color: whitesmoke;
+    background-color: #7c9ab5;
     color: black;
 }
 
@@ -74,20 +75,17 @@ body.register-page {
     padding: 0.5rem;
     border: none;
     border-radius: 5px;
-    background: #ff00cc; 
-    background: -webkit-linear-gradient(to right, black, black);  
-    background: linear-gradient(to right,black, black, black); 
-    color: white;
+    background: #7c9ab5; 
     cursor: pointer;
     font-weight: bold;
 
 }
 
 .register-box button:hover {
-    background-color: white;
+    background-color: #5a9dce;
 }
 
 .register-box input::placeholder {
-    color: #999;
+    color: black;
 }
 
