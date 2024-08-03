@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 import '../register/registerpage.css';
-import { auth } from '../firebaseConfig/firebase';
+import { API_URL } from '../Api';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,23 +8,25 @@ export const Registerpage = () => {
   const [fullname, setFullname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [codigo, setCodigo] = useState('');
   const [error, setError] = useState(null);
 
-  const navigate = useNavigate(); // Use useNavigate to define navigate
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null); // Clear previous errors
+    setError(null); // Limpiar errores anteriores
     
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password, codigo);
-      const user = userCredential.user;
-      console.log('User registered:', user);
-      // Call registro function after successful registration
-      registro();
+      // Cambia la URL y los parámetros según los requisitos de tu API
+      const response = await API_URL.post('/register', {
+        fullname,
+        email,
+        password,
+      });
+      console.log('User registered:', response.data); // Asume que la API devuelve datos relevantes
+      registro(); // Llama a la función de registro exitoso
     } catch (error) {
-      setError(error.message);
+      setError(error.response.data.message || 'Error al registrarse'); // Asume que la API devuelve un mensaje de error
       console.error('Error registering user:', error);
     }
   };
@@ -37,7 +38,7 @@ export const Registerpage = () => {
       icon: 'success',
       confirmButtonText: 'Ok'
     }).then(() => {
-      navigate('/');
+      navigate('/'); // Redirige al inicio o a la página que desees
     });
   };
 
@@ -45,9 +46,7 @@ export const Registerpage = () => {
     <div className="register-container">
       <div className="register-box">
         <h1>Registro</h1>
-        {error && <p className=" error-message"
-        style={{color: "red"}}
-        >{error}</p>}
+        {error && <p className="error-message" style={{color: "red"}}>{error}</p>}
         <form onSubmit={handleSubmit}>
           <label htmlFor="fullname">Name</label>
           <input
@@ -78,6 +77,7 @@ export const Registerpage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+
           <button type="submit">Registrarse</button>
         </form>
       </div>

@@ -1,22 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import './index.css';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, signOut } from './firebaseConfig/firebase';
+import { checkUserLoggedIn } from './apiHelp';  // Asegúrate de importar correctamente
 
 export const Navbar = () => {
-  const navigate=useNavigate()
-  const handleLogoHome=()=>{
-    navigate('/')
-  }
-  const [user] = useAuthState(auth);
-  const [isOpen, setIsOpen] = useState(false);
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const verifyLogin = async () => {
+            const result = await checkUserLoggedIn();
+            if (result.loggedIn) {
+                // Aquí puedes poner más lógica si tienes más datos del usuario, por ejemplo, su nombre
+                setUser({ email: 'usuario@ejemplo.com' }); // Simula que el usuario está logueado
+            } else {
+                setUser(null);
+            }
+        };
+
+        verifyLogin();
+    }, []);
 
   const handleSignOut = () => {
-    signOut(auth).catch(error => {
+    // Llamada a tu API para cerrar sesión
+    logout().then(() => {
+      setUser(null);
+      setIsOpen(false);
+      navigate('/login'); // Redirecciona a la página de login
+    }).catch(error => {
       console.error('Error signing out: ', error);
     });
-    setIsOpen(false);
   };
 
   const toggleMenu = () => {
@@ -28,6 +38,8 @@ export const Navbar = () => {
   };
 
   useEffect(() => {
+    checkUserLoggedIn(); // Verificar el estado del usuario al cargar el componente
+
     const handleResize = () => {
       if (window.innerWidth > 768 && isOpen) {
         setIsOpen(false);
@@ -43,7 +55,7 @@ export const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <img src="src/assets/images/logo2.png" alt="Logo" onClick={handleLogoHome}/>
+        <img src="src/assets/images/logo2.png" alt="Logo" onClick={() => navigate('/')} />
       </div>
       <div className={`navbar-links ${isOpen ? 'active' : ''}`}>
         <Link to="/" onClick={closeMenu}>Inicio</Link>

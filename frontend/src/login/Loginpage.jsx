@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebaseConfig/firebase'; 
 import { useNavigate } from 'react-router-dom'; 
 import Swal from 'sweetalert2';
 import '../login/loginpage.css';
+import { API_URL } from '../Api';
+
 
 export const Loginpage = () => {
   const [email, setEmail] = useState('');
@@ -13,15 +13,19 @@ export const Loginpage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      console.log('User signed in:', user);
-      navigate('/'); 
+      const response = await API_URL.post('/login', { email, password });
+      console.log('User signed in:', response.data); // Asume que la respuesta incluye algún dato relevante
+      Swal.fire({
+        icon: 'success',
+        title: 'Sesión Iniciada',
+        text: 'Has iniciado sesión correctamente',
+      });
+      navigate('/'); // Redirige al inicio o a la ruta deseada
     } catch (error) {
       Swal.fire({
         icon: 'error',
-        title: 'Error al iniciar sesion',
-        text: 'Intentalo de nuevo',
+        title: 'Error al iniciar sesión',
+        text: 'Inténtalo de nuevo',
       });
       console.error('Error signing in:', error);
     }
@@ -37,7 +41,7 @@ export const Loginpage = () => {
             type="email"
             id="email"
             name="email"
-            placeholder="Correo electronico"
+            placeholder="Correo electrónico"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
