@@ -1,32 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { checkUserLoggedIn } from './apiHelp';  // Asegúrate de importar correctamente
+import { Link, useNavigate } from 'react-router-dom'; // Ensure you import Link and useNavigate correctly
+import { checkUserLoggedIn, logout } from './apiHelp';  // Import your API helpers
 
 export const Navbar = () => {
-    const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
+  const [isOpen, setIsOpen] = useState(false); // Ensure isOpen is defined
+  const navigate = useNavigate(); // Use this hook for navigation
 
-    useEffect(() => {
-        const verifyLogin = async () => {
-            const result = await checkUserLoggedIn();
-            if (result.loggedIn) {
-                // Aquí puedes poner más lógica si tienes más datos del usuario, por ejemplo, su nombre
-                setUser({ email: 'usuario@ejemplo.com' }); // Simula que el usuario está logueado
-            } else {
-                setUser(null);
-            }
-        };
+  useEffect(() => {
+    const verifyLogin = async () => {
+      const result = await checkUserLoggedIn();
+      if (result.loggedIn) {
+        setUser({ email: 'usuario@ejemplo.com' }); // Simulate user login
+      } else {
+        setUser(null);
+      }
+    };
 
-        verifyLogin();
-    }, []);
+    verifyLogin();
+  }, []);
 
-  const handleSignOut = () => {
-    // Llamada a tu API para cerrar sesión
-    logout().then(() => {
+  const handleSignOut = async () => {
+    try {
+      await logout(); // Call your API to sign out
       setUser(null);
       setIsOpen(false);
-      navigate('/login'); // Redirecciona a la página de login
-    }).catch(error => {
+      navigate('/login'); // Redirect to the login page
+    } catch (error) {
       console.error('Error signing out: ', error);
-    });
+    }
   };
 
   const toggleMenu = () => {
@@ -38,8 +40,6 @@ export const Navbar = () => {
   };
 
   useEffect(() => {
-    checkUserLoggedIn(); // Verificar el estado del usuario al cargar el componente
-
     const handleResize = () => {
       if (window.innerWidth > 768 && isOpen) {
         setIsOpen(false);
@@ -62,12 +62,12 @@ export const Navbar = () => {
         <Link to="/graficas" onClick={closeMenu}>Graficas</Link>
         {user ? (
           <div className={`navbar-user ${isOpen ? '' : 'desktop'}`}>
-            <span className="navbar-username">Hola, {user.email} !</span>
-            <button className="navbar-signout" onClick={handleSignOut}>Cerrar Sesion</button>
+            <span className="navbar-username">Hola, {user.email}!</span>
+            <button className="navbar-signout" onClick={handleSignOut}>Cerrar Sesión</button>
           </div>
         ) : (
           <>
-            <Link to="/login" className="navbar-signin" onClick={closeMenu}>Iniciar Sesion</Link>
+            <Link to="/login" className="navbar-signin" onClick={closeMenu}>Iniciar Sesión</Link>
             <Link to="/register" className="navbar-signup" onClick={closeMenu}>Registrarse</Link>
           </>
         )}
