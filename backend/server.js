@@ -1,7 +1,7 @@
 const express = require("express");
 
 const bodyParser = require("body-parser");
-const pool = require('../conexion');
+const pool = require('./conexion');
 const datos_usuarios = require("./routes/datos_usuario");
 const emo_men = require("./routes/historial_emociones_mensuales");
 const emo_nega = require("./routes/emociones_negativas");
@@ -13,9 +13,9 @@ const login = require("./routes/login");
 const app = express();
 app.use(bodyParser.json());
 
-const express = require('express');
+
 const router = express.Router();
-const pool = require('../conexion');
+
 
 // Example route for getting user data
 router.get('/', (req, res) => {
