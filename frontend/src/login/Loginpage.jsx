@@ -1,20 +1,30 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import '../login/loginpage.css';
 import { API_URL } from '../Api';
 
-
 export const Loginpage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await API_URL.post('/login', { email, password });
-      console.log('User signed in:', response.data); // Asume que la respuesta incluye algún dato relevante
+      const response = await fetch(`${API_URL}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`); // Handle non-2xx responses
+      }
+
+      const data = await response.json(); // Parse response as JSON
+      console.log('User signed in:', data);
+
       Swal.fire({
         icon: 'success',
         title: 'Sesión Iniciada',
@@ -22,12 +32,12 @@ export const Loginpage = () => {
       });
       navigate('/'); // Redirige al inicio o a la ruta deseada
     } catch (error) {
+      console.error('Error signing in:', error);
       Swal.fire({
         icon: 'error',
         title: 'Error al iniciar sesión',
-        text: 'Inténtalo de nuevo',
+        text: 'Ha ocurrido un error. Inténtalo de nuevo.', // Generic error message
       });
-      console.error('Error signing in:', error);
     }
   };
 
@@ -45,7 +55,7 @@ export const Loginpage = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          
+
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -55,12 +65,12 @@ export const Loginpage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          
+
           <button type="submit">Iniciar Sesion</button>
         </form>
       </div>
     </div>
   );
-}
+};
 
 export default Loginpage;

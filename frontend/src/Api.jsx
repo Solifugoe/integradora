@@ -52,12 +52,12 @@ export const getHistorialEmocionesMensuales = async () => {
     }
 };
 
-export const registerUser = async (fullname, email, password) => {
+export const registerUser = async (correo, contrasena, nombre) => {
     try {
         const response = await apiClient.post('/register', {
-            fullname,
-            email,
-            password
+            correo,
+            contrasena,
+            nombre
         });
         return response.data;
     } catch (error) {
@@ -66,9 +66,9 @@ export const registerUser = async (fullname, email, password) => {
     }
 };
 
-export const loginUser = async (email, password) => {
+export const loginUser = async (correo, contrasena) => {
     try {
-        const response = await apiClient.post('/login', { email, password });
+        const response = await apiClient.post('/login', { correo, contrasena });
         return response.data;
     } catch (error) {
         console.error('Error logging in:', error.response || error.message);
