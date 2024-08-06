@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Define la URL base de la API aquí, o importa si ya está definida en otro archivo
-const API_URL = 'https://oaxacapower.org';  // Make sure to include the protocol (http or https)
+const API_URL = 'https://api2-plma.onrender.com/';  // Make sure to include the protocol (http or https)
 
 // Function to check if the user is logged in
 export const checkUserLoggedIn = async () => {
@@ -24,3 +24,4 @@ export const logout = async () => {
         throw error; // Propagate error to handle it in the calling component
     }
 };
+

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../register/registerpage.css';
-import { API_URL } from '../Api';
+import { registerUser } from '../Api';  // Import registerUser from your API helper
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,22 +14,28 @@ export const Registerpage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null); // Limpiar errores anteriores
-    
+    setError(null); // Clear previous errors
+
     try {
-      // Cambia la URL y los parámetros según los requisitos de tu API
-      const response = await API_URL.post('/register', {
-        fullname,
-        email,
-        password,
-      });
-      console.log('User registered:', response.data); // Asume que la API devuelve datos relevantes
-      registro(); // Llama a la función de registro exitoso
+        // Use registerUser for making API requests
+        const response = await registerUser(fullname, email, password);
+        console.log('User registered:', response); // Assume the API returns relevant data
+        registro(); // Call the successful registration function
     } catch (error) {
-      setError(error.response.data.message || 'Error al registrarse'); // Asume que la API devuelve un mensaje de error
-      console.error('Error registering user:', error);
+        // Log the error response for more details
+        if (error.response) {
+            console.error('Error registering user:', error.response.data);
+            setError(error.response.data.message || 'Error al registrarse');
+        } else if (error.request) {
+            console.error('Error registering user: No response received from server', error.request);
+            setError('No response from server');
+        } else {
+            console.error('Error registering user:', error.message);
+            setError('Error registering user');
+        }
     }
-  };
+};
+
 
   const registro = () => {
     Swal.fire({
@@ -56,6 +62,7 @@ export const Registerpage = () => {
             placeholder="Tu nombre"
             value={fullname}
             onChange={(e) => setFullname(e.target.value)}
+            required
           />
           
           <label htmlFor="email">Email</label>
@@ -66,6 +73,7 @@ export const Registerpage = () => {
             placeholder="Tu correo electrónico"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
           
           <label htmlFor="password">Password</label>
@@ -76,6 +84,7 @@ export const Registerpage = () => {
             placeholder="Contraseña"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
 
           <button type="submit">Registrarse</button>
