@@ -1,7 +1,7 @@
 const express = require("express");
 
 const bodyParser = require("body-parser");
-const pool = require("./conexion");
+const pool = require('../conexion');
 const datos_usuarios = require("./routes/datos_usuario");
 const emo_men = require("./routes/historial_emociones_mensuales");
 const emo_nega = require("./routes/emociones_negativas");
@@ -13,10 +13,35 @@ const login = require("./routes/login");
 const app = express();
 app.use(bodyParser.json());
 
-// Ruta para el endpoint raíz
-app.get('/', (req, res) => {
-    res.send('Bienvenido a la API');
+const express = require('express');
+const router = express.Router();
+const pool = require('../conexion');
+
+// Example route for getting user data
+router.get('/', (req, res) => {
+    pool.getConnection((err, connection) => {
+        if (err) {
+            console.error('Error getting MySQL connection:', err);
+            res.status(500).json({ error: 'Error connecting to database' });
+            return;
+        }
+
+        connection.query('SELECT * FROM users', (error, results) => {
+            connection.release(); // Always release the connection back to the pool
+
+            if (error) {
+                console.error('Error executing query:', error);
+                res.status(500).json({ error: 'Error executing query' });
+                return;
+            }
+
+            res.json(results);
+        });
+    });
 });
+
+module.exports = router;
+
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
