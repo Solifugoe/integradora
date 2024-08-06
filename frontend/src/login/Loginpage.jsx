@@ -15,14 +15,14 @@ export const Loginpage = () => {
       const response = await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ correo, contrasena }),
+        body: JSON.stringify({ correo: email, contrasena: password }),
       });
 
       if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`); // Handle non-2xx responses
+        throw new Error(`Error: ${response.statusText}`); // Manejar respuestas que no sean 2xx
       }
 
-      const data = await response.json(); // Parse response as JSON
+      const data = await response.json(); // Parsear respuesta como JSON
       console.log('User signed in:', data);
 
       Swal.fire({
@@ -36,7 +36,7 @@ export const Loginpage = () => {
       Swal.fire({
         icon: 'error',
         title: 'Error al iniciar sesión',
-        text: 'Ha ocurrido un error. Inténtalo de nuevo.', // Generic error message
+        text: 'Ha ocurrido un error. Inténtalo de nuevo.', // Mensaje de error genérico
       });
     }
   };

@@ -1,5 +1,4 @@
 const express = require("express");
-
 const bodyParser = require("body-parser");
 const pool = require('./conexion');
 const datos_usuarios = require("./routes/datos_usuario");
@@ -13,9 +12,7 @@ const login = require("./routes/login");
 const app = express();
 app.use(bodyParser.json());
 
-
 const router = express.Router();
-
 
 // Example route for getting user data
 router.get('/', (req, res) => {
@@ -42,7 +39,6 @@ router.get('/', (req, res) => {
 
 module.exports = router;
 
-
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
@@ -59,6 +55,15 @@ app.use("/emociones_positivas", emo_pos);
 app.use("/emociones_neutras", emo_neu);
 app.use("/usuario", usuario);
 app.use("/login", login);
+
+// Ruta para verificar si el usuario está conectado
+app.get('/isLoggedIn', (req, res) => {
+    // Aquí puedes agregar la lógica para verificar si el usuario está conectado
+    // Por ejemplo, verificar una sesión o un token
+    // Este es solo un ejemplo básico
+    res.json({ loggedIn: true }); // Cambia esto según tu lógica de autenticación
+});
+
 // Puerto en el que escucha el servidor
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

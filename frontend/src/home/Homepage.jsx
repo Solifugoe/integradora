@@ -50,22 +50,19 @@ export const Homepage = () => {
 
   return (
     <div className="home-container">
-
       <div className="home">
         <div className="event_image">
           <img src="src/assets/images/logo3.png" alt="alphaLogo" />
         </div>
         <div className="content">
           <h2>TheraGlow</h2>
-          <p style={{ textAlign: 'justify' }}>
-            El "Cubo Emocional" que te ayudara en tus tiempos mas estresantes. TheraGlow es un innovador dispositivo diseñado para transformar la manera en que experimentamos nuestras emociones diarias. Este cubo emocional combina tecnología avanzada con un diseño elegante para ofrecer una experiencia única de bienestar emocional.
+          <p>
+            El "Cubo Emocional" que te ayudará en tus tiempos más estresantes. TheraGlow es un innovador dispositivo diseñado para transformar la manera en que experimentamos nuestras emociones diarias. Este cubo emocional combina tecnología avanzada con un diseño elegante para ofrecer una experiencia única de bienestar emocional.
           </p>
         </div>
-        
       </div>
       <Slideshow slides={slides} />
     </div>
-    
   );
 };
 
