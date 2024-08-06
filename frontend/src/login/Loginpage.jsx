@@ -15,7 +15,7 @@ export const Loginpage = () => {
       const response = await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ correo, contrasena }),
       });
 
       if (!response.ok) {
@@ -49,7 +49,7 @@ export const Loginpage = () => {
           <label htmlFor="email">Email</label>
           <input
             type="email"
-            id="email"
+            id="correo"
             name="email"
             placeholder="Correo electrónico"
             value={email}
@@ -59,7 +59,7 @@ export const Loginpage = () => {
           <label htmlFor="password">Password</label>
           <input
             type="password"
-            id="password"
+            id="contrasena"
             name="password"
             placeholder="Contraseña"
             value={password}
